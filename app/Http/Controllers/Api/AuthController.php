@@ -14,14 +14,20 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required',
             'name' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'phone'=> 'required',
+            'city'=> 'required'
         ]);
         $user = new User();
         $user->email = $request->email;
         $user->name = $request->name;
-        $user->company_id = $request->company_id;
+        $user->phone = $request->phone;
+        $user->city = $request->city;
+        $user->province = $request->province;
+        $user->role_id = $request->role_id;
+        $user->is_active = 1;
+
         $user->password = bcrypt($request->password);
-        $user->save();
 
 
         $tokenRequest = Request::create('/oauth/token', 'post', [
@@ -34,7 +40,9 @@ class AuthController extends Controller
         ]);
 
         $response = app()->handle($tokenRequest);
-        return $response;
+
+        if ($user->save()) return response(['message' => 'Register Success!', 'status' => true]);
+        return response(['message' => 'Register Failure!', 'status' => false]);
 
     }
 
