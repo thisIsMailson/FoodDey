@@ -31,3 +31,6 @@ Route::get('user', 'Api\UserController@user');
 
 Route::post('login', 'Api\AuthController@login');
 Route::post('register', 'Api\AuthController@register');
+
+Route::get('storages', 'Api\StorageController@storages')->name('storage.all');
+Route::get('storages/{storage}', 'Api\StorageController@storage')->name('storage.show');

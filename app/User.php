@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Storage;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -43,6 +44,10 @@ class User extends Authenticatable
 
         return $this->belongsTo('App\Role');
 
+    }
+
+    public function storages(){
+        return $this->hasMany(Storage::class);
     }
 
 }

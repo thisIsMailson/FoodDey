@@ -17,11 +17,11 @@ class CreateStoragesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('location');
-            $table->string('description');
-            $table->string('capacity');
-            $table->string('available_capacity');
-            $table->string('is_available');
-            $table->string('user_id');
+            $table->mediumText('description');
+            $table->integer('capacity');
+            $table->integer('available_capacity');
+            $table->boolean('is_available')->default(true);
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
