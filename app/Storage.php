@@ -6,10 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Storage extends Model
 {
+    protected $table = 'storages';
+    protected $primaryKey = 'id';
 
-    public function owner() {
+    protected $fillable = [
+        'name', 'location', 'description', 'capacity', 'available_capacity', 'is_available', 'user_id',
+    ];
 
-        return $this->belongsTo('App\User');
 
+    public function owner() 
+    {
+        return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function isAvailable() 
+    {
+        return ($this->is_available)? true:false;
+    }
+
+
 }

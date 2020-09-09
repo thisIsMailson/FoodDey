@@ -31,3 +31,9 @@ Route::get('user', 'Api\UserController@user');
 
 Route::post('login', 'Api\AuthController@login');
 Route::post('register', 'Api\AuthController@register');
+
+Route::get('storages', 'Api\StorageController@storages')->name('storage.all');
+Route::post('storages', 'Api\StorageController@store')->name('storage.store');
+Route::get('storages/{storage}', 'Api\StorageController@storage')->name('storage.show');
+Route::post('storages/{storage}/edit', 'Api\StorageController@update')->name('storage.update');
+Route::delete('storages/{storage}/delete', 'Api\StorageController@delete')->name('storage.delete');
