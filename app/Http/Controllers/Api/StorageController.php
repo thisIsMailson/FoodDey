@@ -13,6 +13,10 @@ use App\Exceptions\NotBelongsToUser;
 
 class StorageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except('storages', 'storage');
+    }
     /**
      * Display a listing of the resource.
      *
