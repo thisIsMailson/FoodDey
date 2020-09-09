@@ -17,7 +17,7 @@ class StorageCollection extends JsonResource
         return [
             'name' => $this->name,
             'location' => $this->location,
-            'isAvailable' => ($this->is_available)? true:false,
+            'isAvailable' => $this->isAvailable(),
             'href' => [
                 'details' => route('storage.show', $this->id)
             ]

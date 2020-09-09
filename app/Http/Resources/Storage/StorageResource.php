@@ -20,7 +20,7 @@ class StorageResource extends JsonResource
             'description' => $this->description,
             'capacity' => $this->capacity,
             'availableCapacity' => $this->available_capacity,
-            'isAvailable' => ($this->is_available)? true:false,
+            'isAvailable' => $this->isAvailable(),
             'owner' => $this->owner->name
         ];
     }

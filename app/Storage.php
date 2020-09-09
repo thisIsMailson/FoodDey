@@ -18,4 +18,11 @@ class Storage extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function isAvailable() 
+    {
+        return ($this->is_available)? true:false;
+    }
+
+
 }

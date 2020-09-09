@@ -21,7 +21,7 @@ class CreateStoragesTable extends Migration
             $table->integer('capacity');
             $table->integer('available_capacity');
             $table->boolean('is_available')->default(true);
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
         });
     }
