@@ -39,8 +39,7 @@ class StorageController extends Controller
         $storage->description = $request->description;
         $storage->capacity = $request->capacity;
         $storage->available_capacity = $request->availableCapacity;
-        // $storage->user_id =  Auth::user()->id;
-        $storage->user_id =  1;
+        $storage->user_id =  Auth::user()->id;
         $storage->save();
 
         return $this->createdResponse(true, 'Storage saved successful', Response::HTTP_CREATED);
