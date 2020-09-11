@@ -10,9 +10,10 @@ class StoragePrice extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'price', 'storage_id',
+        'price', 'currency', 'storage_id',
     ];
 
+    
     public function storage()
     {
         return $this->belongsTo('App\Storage', 'storage_id');

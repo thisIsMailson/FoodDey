@@ -21,6 +21,8 @@ class StorageResource extends JsonResource
             'capacity' => $this->capacity,
             'availableCapacity' => $this->available_capacity,
             'isAvailable' => $this->isAvailable(),
+            'price' => number_format($this->storagePrice->price,2),
+            'currency' => $this->storagePrice->currency,
             'owner' => $this->owner->name
         ];
     }

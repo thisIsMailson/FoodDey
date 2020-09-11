@@ -16,6 +16,7 @@ class CreateStoragePricesTable extends Migration
         Schema::create('storage_prices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->double('price');
+            $table->string('currency');
             $table->integer('storage_id')->unsigned()->index();
             $table->timestamps();
         });
