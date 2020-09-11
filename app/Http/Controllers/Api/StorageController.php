@@ -78,7 +78,7 @@ class StorageController extends Controller
     {
         $this->storageUserCheck($storage->user_id);
         $storage->delete();
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        return $this->createdResponse(true, 'Storage deleted successful', Response::HTTP_OK);
     }
 
 
