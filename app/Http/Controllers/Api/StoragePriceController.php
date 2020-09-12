@@ -1,64 +1,58 @@
+
 <?php
 
 namespace App\Http\Controllers\Api;
 
-use App\storagePrice;
+use App\StoragePrice;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Messages\ResponseMessageTrait;
+use App\Exceptions\NotBelongsToUser;
 use Illuminate\Http\Response;
+use Auth;
 
-class StoragePriceControlle extends Controller
+class StoragePriceController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    use ResponseMessageTrait;
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+    // check if storage is for user
+    public function userCheck($user_id){
+        if(Auth::user()->id !== $user_id){
+            throw new NotBelongsToUser;
+        }
+    }
+
     public function store(Request $request)
     {
-        $storagePrice = new StoragePrice();
-        $storagePrice->name = $request->name;
-        $storagePrice->storage_id = $request->storage_id;
+        $this->validate($request, [
+            'price'  => 'required|numeric',
+            'currency'  => 'required|string',
+            'storageID'  => 'required|integer',
+        ]);
 
-        if ($storagePrice->save()) return $this->createdResponse(true, 'Storage price saved successful', Response::HTTP_CREATED);
-        return $this->createdResponse(false, 'Error saving price', Response::HTTP_SERVICE_UNAVAILABLE);
+        $storagePrice = new StoragePrice();
+        $storagePrice->price = $request->price;
+        $storagePrice->currency = $request->currency;
+        $storagePrice->storage_id = $request->storageID;
+
+        if ($storagePrice->save()) return $this->apiReponse(true, 'Storage price saved successful', Response::HTTP_CREATED);
+        return $this->apiReponse(false, 'Error saving price', Response::HTTP_SERVICE_UNAVAILABLE);
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function update(Request $request, StoragePrice $storagePrice)
     {
         $this->validate($request, [
-            'name'  => 'required|string',
+            'price'  => 'required|numeric',
         ]);
+        $this->userCheck($storagePrice->storage->user_id);
         $storagePrice->update($request->all());
 
-        return $this->createdResponse(true, 'Storage updated successful', Response::HTTP_CREATED);
+        return $this->apiReponse(true, 'Storage price updated successful', Response::HTTP_CREATED);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    // created responses
-    public function createdResponse($status, $message, $code){
-        return response()->json([
-            'status' => $status,
-            'message' => $message
-        ], $code);
-    }
-
 }

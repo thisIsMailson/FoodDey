@@ -19,6 +19,10 @@ class Storage extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    public function storagePrice(){
+        return $this->hasOne(StoragePrice::class);
+    }
+
     public function isAvailable() 
     {
         return ($this->is_available)? true:false;

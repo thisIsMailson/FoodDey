@@ -33,6 +33,7 @@ Route::get('user', 'Api\UserController@user');
 Route::post('login', 'Api\AuthController@login');
 Route::post('register', 'Api\AuthController@register');
 
+<<<<<<< HEAD
 // storage requests
 Route::get('storages', 'Api\StorageController@storages')->name('storage.all');
 Route::post('storages', 'Api\StorageController@store')->name('storage.store');
@@ -45,3 +46,14 @@ Route::get('bookStorageRequest', 'Api\BookStorageRequestController@userStorageRe
 Route::post('bookStorageRequest', 'Api\BookStorageRequestController@store')->name('bookStorageRequest.store');
 Route::post('bookStorageRequest/{bookStorageRequest}/edit', 'Api\BookStorageRequestController@update')->name('bookStorageRequest.update');
 Route::delete('bookStorageRequest/{bookStorageRequest}/delete', 'Api\BookStorageRequestController@delete')->name('bookStorageRequest.delete');
+=======
+Route::prefix('storages')->group(function () {
+    Route::get('/', 'Api\StorageController@storages')->name('storage.all');
+    Route::post('/', 'Api\StorageController@store')->name('storage.store');
+    Route::get('/{storage}', 'Api\StorageController@storage')->name('storage.show');
+    Route::post('/{storage}/edit', 'Api\StorageController@update')->name('storage.update');
+    Route::delete('/{storage}/delete', 'Api\StorageController@delete')->name('storage.delete');
+
+    Route::post('/prices/{storagePrice}/edit', 'Api\StoragePriceController@update')->name('storage.price_edit');
+});
+>>>>>>> 6d826dd975e439f2fcb8c1e0c195e06b00db4c20

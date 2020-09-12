@@ -20,7 +20,7 @@ class CreateStoragesTable extends Migration
             $table->mediumText('description');
             $table->integer('capacity');
             $table->integer('available_capacity');
-            $table->boolean('is_available')->default(true);
+            $table->boolean('is_available')->default(false);
             $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
         });
